@@ -2317,7 +2317,7 @@ class PlayState extends MusicBeatState
 						  dad.holdTimer = 0;
 						  
 						  if (daNote.noteType == 'Hey!') {
-						    if (dad.animOffsets.exists('hey')))
+						    if (dad.animOffsets.exists('hey'))
 						    dad.playAnim('hey', true);
 						  }
 						}
