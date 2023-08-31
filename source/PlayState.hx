@@ -3185,7 +3185,7 @@ class PlayState extends MusicBeatState
 						totalNotesHit += 1;
 						
 				if (note.noteType != 'No Animation') {
-				  boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction) % 4)], true);
+				  boyfriend.playAnim(singAnimations[Std.int(Math.abs(note.noteData) % 4)], true);
 					
 					if (note.noteType == 'Hey!') {
 					  if(boyfriend.animOffsets.exists('hey'))
