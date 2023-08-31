@@ -154,6 +154,8 @@ class PlayState extends MusicBeatState
 	var currentFrames:Int = 0;
 
 	public var dialogue:Array<String> = ['dad:blah blah blah', 'bf:coolswag'];
+	
+	public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
 	var halloweenBG:FlxSprite;
 	var isHalloween:Bool = false;
@@ -1433,6 +1435,7 @@ class PlayState extends MusicBeatState
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.sustainLength = songNotes[2];
+				swagNote.noteType = songNotes[3];
 				swagNote.scrollFactor.set(0, 0);
 
 				var susLength:Float = swagNote.sustainLength;
@@ -1445,6 +1448,7 @@ class PlayState extends MusicBeatState
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
 					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
+					sustainNote.noteType = swagNote.noteType;
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
 
@@ -2307,17 +2311,15 @@ class PlayState extends MusicBeatState
 							if (SONG.notes[Math.floor(curStep / 16)].altAnim)
 								altAnim = '-alt';
 						}
-	
-						switch (Math.abs(daNote.noteData))
-						{
-							case 2:
-								dad.playAnim('singUP' + altAnim, true);
-							case 3:
-								dad.playAnim('singRIGHT' + altAnim, true);
-							case 1:
-								dad.playAnim('singDOWN' + altAnim, true);
-							case 0:
-								dad.playAnim('singLEFT' + altAnim, true);
+						
+						if (daNote.noteType != 'No Animation') {
+						  dad.playAnim(singAnimations[Std.int(Math.abs(daNote.noteData) % 4)] + altAnim, true);
+						  dad.holdTimer = 0;
+						  
+						  if (daNote.noteType == 'Hey!') {
+						    if (dad.animOffsets.exists('hey')))
+						    dad.playAnim('hey', true);
+						  }
 						}
 						
 						if (FlxG.save.data.cpuStrums)
@@ -2343,14 +2345,11 @@ class PlayState extends MusicBeatState
 						if (luaModchart != null)
 							luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
 						#end
-
-						dad.holdTimer = 0;
 	
 						if (SONG.needsVoices)
 							vocals.volume = 1;
 	
 						daNote.active = false;
-
 
 						daNote.kill();
 						notes.remove(daNote, true);
@@ -3046,17 +3045,7 @@ class PlayState extends MusicBeatState
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 
-			switch (direction)
-			{
-				case 0:
-					boyfriend.playAnim('singLEFTmiss', true);
-				case 1:
-					boyfriend.playAnim('singDOWNmiss', true);
-				case 2:
-					boyfriend.playAnim('singUPmiss', true);
-				case 3:
-					boyfriend.playAnim('singRIGHTmiss', true);
-			}
+			boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction) % 4)] + 'miss', true);
 
 			#if sys
 			if (luaModchart != null)
@@ -3167,7 +3156,6 @@ class PlayState extends MusicBeatState
 
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
-
 				if (mashing != 0)
 					mashing = 0;
 
@@ -3195,28 +3183,20 @@ class PlayState extends MusicBeatState
 					}
 					else
 						totalNotesHit += 1;
-	
-
-					switch (note.noteData)
-					{
-						case 2:
-							boyfriend.playAnim('singUP', true);
-						case 3:
-							boyfriend.playAnim('singRIGHT', true);
-						case 1:
-							boyfriend.playAnim('singDOWN', true);
-						case 0:
-							boyfriend.playAnim('singLEFT', true);
+						
+				if (note.noteType != 'No Animation') {
+				  boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction) % 4)], true);
+					
+					if (note.noteType == 'Hey!') {
+					  if(boyfriend.animOffsets.exists('hey'))
+					    boyfriend.playAnim('hey', true);
 					}
+				}
 		
 					#if sys
 					if (luaModchart != null)
 						luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
 					#end
-
-
-					if(!loadRep && note.mustPress)
-						saveNotes.push(HelperFunctions.truncateFloat(note.strumTime, 2));
 					
 					playerStrums.forEach(function(spr:FlxSprite)
 					{
