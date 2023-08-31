@@ -797,8 +797,8 @@ class PlayState extends MusicBeatState
 			case 'tord':
 				camPos.x += 0;
 				camPos.y += 30;
-				dad.x -= 80;
-				dad.y += 40;
+				/*dad.x -= 80;
+				dad.y += 40;*/
 			case 'pico':
 				camPos.x += 600;
 				dad.y += 300;
@@ -838,8 +838,8 @@ class PlayState extends MusicBeatState
 				boyfriend.x += 290;
 				boyfriend.y += 20;
 				gf.x += 60;
-				dad.x -= 140; // se não for, mudar para -= 60
-				dad.y += 20; // se não for, mudar para -= 20
+				dad.x += 65; // se não for, mudar para -= 60
+				dad.y += 60; // se não for, mudar para -= 20
 			case 'mallEvil':
 				boyfriend.x += 320;
 				dad.y -= 80;
