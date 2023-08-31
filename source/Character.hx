@@ -139,6 +139,24 @@ class Character extends FlxSprite
 				addOffset("singDOWN", 0, -30);
 
 				playAnim('idle');
+			case 'tord':
+				tex = Paths.getSparrowAtlas('characters/TordPlayable', 'shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'TordIdlePlayable', 24);
+				animation.addByPrefix('singUP', 'TordIdleUp', 24);
+				animation.addByPrefix('singRIGHT', 'TordIdleRight', 24);
+				animation.addByPrefix('singDOWN', 'TordIdleDown', 24);
+				animation.addByPrefix('singLEFT', 'TordIdleLeft', 24);
+				animation.addByPrefix('hey', 'TordIdleHEY', 24);
+
+				addOffset('idle');
+				addOffset("singUP", -11, 19);
+				addOffset("singRIGHT", -4, 4);
+				addOffset("singLEFT", 30, -4);
+				addOffset("singDOWN", 10, -60);
+				addOffset("hey", 25, 2);
+
+				playAnim('idle');
 			case 'spooky':
 				tex = Paths.getSparrowAtlas('characters/spooky_kids_assets');
 				frames = tex;
