@@ -688,6 +688,44 @@ class PlayState extends MusicBeatState
 	
 						add(stageCurtains);
 				}
+			case 'TordBG':
+				{
+						defaultCamZoom = 0.7;
+						curStage = 'TordBG';
+						var SkyBox:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/SkyBox'));
+						SkyBox.antialiasing = true;
+						SkyBox.scrollFactor.set(0.9, 0.8);
+						SkyBox.active = false;
+						add(SkyBox);
+	
+						var Clouds:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/Clouds'));
+						Clouds.antialiasing = true;
+						Clouds.scrollFactor.set(0.9, 0.8);
+						Clouds.active = false;
+						add(Clouds);
+						
+						var SecondParalax:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/SecondParalax'));
+						SecondParalax.antialiasing = true;
+						SecondParalax.scrollFactor.set(1, 0.9);
+						SecondParalax.active = false;
+						add(SecondParalax);
+	
+						var Fence:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/Fence'));
+						Fence.antialiasing = true;
+						Fence.active = false;
+						add(Fence);
+						
+						var casa:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/HousesAndFloor'));
+						casa.antialiasing = true;
+						casa.active = false;
+						add(casa);
+						
+						var car:FlxSprite = new FlxSprite(-1790, -600).loadGraphic(Paths.image('TordBG/Car'));
+						car.antialiasing = true;
+						car.active = false;
+						add(car);
+
+				}
 			default:
 			{
 					defaultCamZoom = 0.9;
@@ -795,7 +833,14 @@ class PlayState extends MusicBeatState
 
 			case 'mall':
 				boyfriend.x += 200;
-
+				
+			case 'TordBG':
+				boyfriend.x += 1060;
+				boyfriend.y += 120;
+				gf.x += 460;
+				gf.y += 130;
+				dad.x += 245;
+				dad.y += 120;
 			case 'mallEvil':
 				boyfriend.x += 320;
 				dad.y -= 80;
